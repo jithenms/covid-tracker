@@ -13,7 +13,7 @@ import {
 
 const StateTable = ({ timeseries }) => {
     return (
-        <TableContainer component={Paper} >
+        <TableContainer component={Paper}>
             {timeseries ?
                 <Table stickyHeader aria-label="simple table">
                     <TableHead>

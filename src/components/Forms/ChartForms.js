@@ -5,10 +5,11 @@ import {
     MenuItem,
     Typography
 } from '@mui/material';
+import { Box } from '@mui/system';
 
 const TrendForms = ({ state, uiDate, setuiDate, handleSelect, timeseries }) => {
     return (
-        <div style={{display: "flex", marginLeft: "auto"}}>
+        <Box style={{display: "flex", marginLeft: "auto"}}>
             <FormControl style={{ display: 'flex', marginLeft: 'auto', padding: '10px' }}>
                 <Select
                     value={uiDate}
@@ -35,7 +36,7 @@ const TrendForms = ({ state, uiDate, setuiDate, handleSelect, timeseries }) => {
                     }
                 </Select>
             </FormControl>
-        </div>
+        </Box>
     )
 }
 

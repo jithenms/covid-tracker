@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import axios from 'axios';
 import StateTable from './Tables/StateTable';
+import { Box } from '@mui/system';
 
 const StateStats = () => {
     const [timeseries, setTimeseries] = useState();
@@ -25,14 +26,12 @@ const StateStats = () => {
     }, [timeseries])
 
     return (
-        <div>
-            <Grid item xs={12}>
-                <Typography variant="h6" component="h6" style={{ marginBottom: '25px' }}>
-                    Current Stats
-                </Typography>
-                <StateTable timeseries={timeseries} />
-            </Grid>
-        </div>
+        <Box>
+            <Typography variant="h6" component="h6" style={{ marginBottom: '25px' }}>
+                Current Stats
+            </Typography>
+            <StateTable timeseries={timeseries} />
+        </Box>
     )
 
 }

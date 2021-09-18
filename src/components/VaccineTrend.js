@@ -13,6 +13,7 @@ import { Bar, Line } from "react-chartjs-2";
 import moment from 'moment';
 import TrendForms from './Forms/ChartForms';
 import VaccineChart from './Charts/VaccineChart';
+import { Box } from '@mui/system';
 
 const VaccineTrend = () => {
     const api_url = `https://api.covidactnow.org/v2/states.timeseries.json?apiKey=${process.env.REACT_APP_COVID_API_KEY}`;
@@ -81,17 +82,15 @@ const VaccineTrend = () => {
 
 
     return (
-        <Grid item xs={12} style={{marginTop: '25px'}}>
-            <Card sx={{ minHeight: 345 }}>
-                <div style={{ display: 'flex' }}>
+            <Card style={{marginTop: '25px'}}>
+                <Box style={{ display: 'flex' }}>
                     <CardHeader title="Vaccines Initiated and Completed" />
                     <TrendForms uiDate={uiDate} state={state} setuiDate={setuiDate} handleSelect={handleSelect} timeseries={timeseries} />
-                </div>
+                </Box>
                 <CardContent style={{ minHeight: 300 }}>
                     {state === 'Select State' ? <Skeleton variant="rectangular" height={300} /> : <VaccineChart dates={dates} vaccinesInit={vaccinesInit} vaccinesComp={vaccinesComp} />}
                 </CardContent>
             </Card>
-        </Grid>
     );
 }
 

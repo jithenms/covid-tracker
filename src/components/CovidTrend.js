@@ -74,17 +74,15 @@ const CovidTrend = () => {
     }
 
     return (
-        <Grid item xs={12}>
             <Card>
-                <div style={{ display: 'flex' }}>
+                <Box style={{ display: 'flex' }}>
                     <CardHeader title="Covid Cases and Deaths" />
                     <TrendForms uiDate={uiDate} state={state} setuiDate={setuiDate} handleSelect={handleSelect} timeseries={timeseries} />
-                </div>
+                </Box>
                 <CardContent style={{ minHeight: 300 }}>
                     {state === 'Select State' ? <Skeleton variant="rectangular" height={300} /> : <CovidChart newCases={newCases} newDeaths={newDeaths} dates={dates}/>}
                 </CardContent>
             </Card>
-        </Grid>
     );
 }
 
