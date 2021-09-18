@@ -11,7 +11,7 @@ Built this tracker using React and the Covid Act Now API.
 ```dosini
 REACT_APP_COVID_API_KEY=Your_API_KEY
 ```
-4. Run npm start
+4. Run npm install && npm start
 ```bash
 npm install && npm start
 ```
