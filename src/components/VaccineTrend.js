@@ -11,6 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { Bar, Line } from "react-chartjs-2";
 import moment from 'moment';
+import TrendForms from './Forms/ChartForms';
+import VaccineChart from './Charts/VaccineChart';
 
 const VaccineTrend = () => {
     const api_url = `https://api.covidactnow.org/v2/states.timeseries.json?apiKey=${process.env.REACT_APP_COVID_API_KEY}`;
@@ -77,71 +79,18 @@ const VaccineTrend = () => {
         setState(value);
     }
 
-    const data = {
-        labels: dates,
-        datasets: [
-            {
-                label: "Total Vaccines Initiated",
-                data: vaccinesInit,
-                fill: true,
-                backgroundColor: "#FFD580",
-            },
-            {
-                label: "Total Vaccines Completed",
-                data: vaccinesComp,
-                fill: true,
-                backgroundColor: "#FF7F7F",
-            },
-        ]
-    };
-
-    const options = {
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    };
-
 
     return (
         <Grid item xs={12} style={{marginTop: '25px'}}>
             <Card sx={{ minHeight: 345 }}>
                 <div style={{ display: 'flex' }}>
                     <CardHeader title="Vaccines Initiated and Completed" />
-                    <FormControl style={{ display: 'flex', marginLeft: 'auto', padding: '10px' }}>
-                        <Select
-                            value={uiDate}
-                            onChange={event => setuiDate(event.target.value)}
-                            displayEmpty
-                        >
-                            <MenuItem value="Select Date">Select Date</MenuItem>
-                            <MenuItem value={7}>Last 7 Days</MenuItem>
-                            <MenuItem value={30}>Last 30 Days</MenuItem>
-                            <MenuItem value={90}>Last 90 Days</MenuItem>
-                            <MenuItem value={360}>Last 360 Days</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl style={{ display: 'flex', padding: '10px' }}>
-                        <Select
-                            value={state}
-                            onChange={event => handleSelect(event.target.value)}
-                            displayEmpty
-                        >
-                            <MenuItem value="Select State">Select State</MenuItem>
-                            {timeseries?.map(item => (
-                                <MenuItem value={item.state}>{item.state}</MenuItem>
-                            ))
-                            }
-                        </Select>
-                    </FormControl>
+                    <TrendForms uiDate={uiDate} state={state} setuiDate={setuiDate} handleSelect={handleSelect} timeseries={timeseries} />
                 </div>
                 <CardContent style={{ minHeight: 300 }}>
-                    {state === 'Select State' ? <Skeleton variant="rectangular" height={300} /> : <Bar data={data} options={options} />}
+                    {state === 'Select State' ? <Skeleton variant="rectangular" height={300} /> : <VaccineChart dates={dates} vaccinesInit={vaccinesInit} vaccinesComp={vaccinesComp} />}
                 </CardContent>
             </Card>
-
         </Grid>
     );
 }

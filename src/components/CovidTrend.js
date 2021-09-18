@@ -6,11 +6,9 @@ import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
 import CardContent from '@mui/material/CardContent';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
 import { Line } from "react-chartjs-2";
+import CovidChart from './Charts/CovidChart';
+import TrendForms from './Forms/ChartForms';
 import moment from 'moment';
 
 const CovidTrend = () => {
@@ -35,7 +33,6 @@ const CovidTrend = () => {
             console.log(error);
         });
     }
-
 
     const addChartData = (dateStart) => {
         var startdate = moment();
@@ -76,71 +73,17 @@ const CovidTrend = () => {
         setState(value);
     }
 
-    const data = {
-        labels: dates,
-        datasets: [
-            {
-                label: "Covid Cases",
-                data: newCases,
-                fill: true,
-                backgroundColor: "#FFD580",
-            },
-            {
-                label: "Covid Deaths",
-                data: newDeaths,
-                fill: true,
-                backgroundColor: "#FF7F7F",
-            },
-        ]
-    };
-
-    const options = {
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    };
-
-
     return (
         <Grid item xs={12}>
             <Card>
                 <div style={{ display: 'flex' }}>
                     <CardHeader title="Covid Cases and Deaths" />
-                    <FormControl style={{ display: 'flex', marginLeft: 'auto', padding: '10px' }}>
-                        <Select
-                            value={uiDate}
-                            onChange={event => setuiDate(event.target.value)}
-                            displayEmpty
-                        >
-                            <MenuItem value="Select Date">Select Date</MenuItem>
-                            <MenuItem value={7}>Last 7 Days</MenuItem>
-                            <MenuItem value={30}>Last 30 Days</MenuItem>
-                            <MenuItem value={90}>Last 90 Days</MenuItem>
-                            <MenuItem value={360}>Last 360 Days</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl style={{ display: 'flex', padding: '10px' }}>
-                        <Select
-                            value={state}
-                            onChange={event => handleSelect(event.target.value)}
-                            displayEmpty
-                        >
-                            <MenuItem value="Select State">Select State</MenuItem>
-                            {timeseries?.map(item => (
-                                <MenuItem value={item.state}>{item.state}</MenuItem>
-                            ))
-                            }
-                        </Select>
-                    </FormControl>
+                    <TrendForms uiDate={uiDate} state={state} setuiDate={setuiDate} handleSelect={handleSelect} timeseries={timeseries} />
                 </div>
                 <CardContent style={{ minHeight: 300 }}>
-                    {state === 'Select State' ? <Skeleton variant="rectangular" height={300} /> : <Line data={data} options={options} />}
+                    {state === 'Select State' ? <Skeleton variant="rectangular" height={300} /> : <CovidChart newCases={newCases} newDeaths={newDeaths} dates={dates}/>}
                 </CardContent>
             </Card>
-
         </Grid>
     );
 }
